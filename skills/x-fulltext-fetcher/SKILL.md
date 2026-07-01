@@ -1,13 +1,13 @@
 ---
 name: x-fulltext-fetcher
-description: Fetch readable text, metadata, and X Article content from public X/Twitter status links. Use when the user asks to read, extract, archive, summarize, convert to Markdown, or otherwise retrieve full text from an X/Twitter post, thread, long post, or Article URL, especially when x.com requires login or only shows previews.
+description: Fetch readable text, metadata, X Article content, and local research feeds from public X/Twitter status links. Use when the user asks to read, extract, archive, summarize, convert to Markdown, build a digest, or otherwise retrieve full text from an X/Twitter post, thread, long post, or Article URL, especially when x.com requires login or only shows previews.
 ---
 
 # X Fulltext Fetcher
 
 ## Overview
 
-Use this skill to retrieve public X/Twitter post text and X Article bodies from a link, with a reproducible fallback workflow. Treat it as a lightweight, read-only, MCP-like research tool for URL-based information collection. Prefer saving extracted full text to a local Markdown file and summarizing it in chat when the content is long or copyrighted.
+Use this skill to retrieve public X/Twitter post text and X Article bodies from a link, with a reproducible fallback workflow. Treat it as a lightweight, read-only, MCP-like research tool for URL-based information collection, local digests, JSONL indexes, JSON Feed, and RSS output. Prefer saving extracted full text to a local Markdown file and summarizing it in chat when the content is long or copyrighted.
 
 ## Quick Start
 
@@ -25,12 +25,18 @@ For multiple links:
 python C:\Users\lgq20\.codex\skills\x-fulltext-fetcher\scripts\fetch_x_fulltext.py --batch F:\Codex\x-links.txt --out-dir F:\Codex\x-corpus --metadata-out F:\Codex\x-corpus\metadata.json
 ```
 
+For a named research feed:
+
+```powershell
+python C:\Users\lgq20\.codex\skills\x-fulltext-fetcher\scripts\fetch_x_fulltext.py --sources F:\Codex\x-sources.json --out-dir F:\Codex\x-research --digest-out F:\Codex\x-research\digest.md --index-out F:\Codex\x-research\index.jsonl --feed-json F:\Codex\x-research\feed.json --feed-rss F:\Codex\x-research\feed.xml
+```
+
 ## Workflow
 
 1. Normalize the link. Prefer the original `/status/<id>` URL over `/i/article/<id>` or `/article/<id>` URLs.
 2. Run `scripts/fetch_x_fulltext.py` with the URL and an `--out` path when the user wants a durable artifact.
 3. If the script returns Article content, provide the file path, title, article id, block count, and a concise summary.
-4. For research/corpus-building tasks, use `--raw-json`, `--raw-json-dir`, and `--metadata-out` to preserve source data for later indexing.
+4. For research/corpus-building tasks, use `--sources`, `--digest-out`, `--index-out`, `--feed-json`, `--feed-rss`, `--raw-json-dir`, and `--metadata-out` to preserve source data for later indexing and browsing.
 5. If the user needs exact local text, point them to the generated Markdown file rather than pasting a full copyrighted article into chat.
 6. If the script fails, read `references/methods.md` and try the fallback methods in order.
 

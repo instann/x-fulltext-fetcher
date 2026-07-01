@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>X Fulltext Fetcher Dashboard</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Primary">
+        <div class="brand">
+          <img src="../assets/hero-banner.png" alt="" class="brand-mark">
+          <div>
+            <strong>X Fulltext</strong>
+            <span>Research feed</span>
+          </div>
+        </div>
+        <nav class="nav-list">
+          <a href="#overview" class="active">Overview</a>
+          <a href="#sources">Sources</a>
+          <a href="#digest">Digest</a>
+          <a href="#exports">Exports</a>
+        </nav>
+        <div class="sidebar-note">
+          <span class="note-label">Local first</span>
+          <p>Markdown, JSON Feed, RSS, and JSONL stay in your workspace.</p>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">X-centered intelligence workspace</p>
+            <h1>Curate public X posts into a research feed.</h1>
+          </div>
+          <div class="toolbar">
+            <label class="file-button">
+              Load feed
+              <input id="feedFile" type="file" accept="application/json,.json">
+            </label>
+            <a class="icon-button" href="./sample-feed.json" download aria-label="Download sample feed">JSON</a>
+            <a class="icon-button" href="../README.md" aria-label="Open README">Docs</a>
+          </div>
+        </header>
+
+        <section id="overview" class="metrics-grid" aria-label="Feed metrics">
+          <article class="metric-card">
+            <span>Items</span>
+            <strong id="metricItems">0</strong>
+            <small>Collected links</small>
+          </article>
+          <article class="metric-card">
+            <span>Sources</span>
+            <strong id="metricSources">0</strong>
+            <small>Distinct origins</small>
+          </article>
+          <article class="metric-card">
+            <span>Tags</span>
+            <strong id="metricTags">0</strong>
+            <small>Research themes</small>
+          </article>
+          <article class="metric-card">
+            <span>Marked</span>
+            <strong id="metricMarked">0</strong>
+            <small>Saved for review</small>
+          </article>
+        </section>
+
+        <section class="control-row" aria-label="Feed controls">
+          <div class="segmented" role="tablist" aria-label="Digest cadence">
+            <button class="selected" data-period="all">All</button>
+            <button data-period="4h">4H</button>
+            <button data-period="daily">Daily</button>
+            <button data-period="weekly">Weekly</button>
+          </div>
+          <label class="search-box">
+            <span>Search</span>
+            <input id="searchInput" type="search" placeholder="Title, summary, tag">
+          </label>
+        </section>
+
+        <section class="content-grid">
+          <div class="feed-column">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Digest queue</p>
+                <h2>Research items</h2>
+              </div>
+              <span id="resultCount" class="count-pill">0 shown</span>
+            </div>
+            <div id="feedList" class="feed-list"></div>
+          </div>
+
+          <aside class="insight-panel" id="digest">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Deep dive</p>
+                <h2 id="detailTitle">Select an item</h2>
+              </div>
+            </div>
+            <p id="detailSummary" class="detail-summary">Choose a feed item to inspect its summary, source link, and tags.</p>
+            <div class="detail-meta" id="detailMeta"></div>
+            <div class="action-stack">
+              <button id="markButton" type="button">Mark for review</button>
+              <a id="openSource" href="#" target="_blank" rel="noreferrer">Open source</a>
+            </div>
+            <div id="exports" class="export-box">
+              <h3>CLI export recipe</h3>
+              <code>python scripts/fetch_x_fulltext.py --sources examples/sources.json --out-dir outputs/research --digest-out outputs/research/digest.md --index-out outputs/research/index.jsonl --feed-json web/feed.json --feed-rss outputs/research/feed.xml</code>
+            </div>
+          </aside>
+        </section>
+      </main>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>

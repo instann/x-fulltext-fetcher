@@ -1,0 +1,23 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "X Research Feed",
+  "home_page_url": "https://github.com/instann/x-fulltext-fetcher",
+  "items": [
+    {
+      "id": "2071592494245285956",
+      "url": "https://x.com/ambertreelet/status/2071592494245285956?s=46",
+      "title": "Public X research item",
+      "summary": "A sample item showing how collected X posts and Articles appear in the local research dashboard.",
+      "date_published": "2026-07-02T00:00:00+00:00",
+      "tags": ["ai", "operators", "strategy"]
+    },
+    {
+      "id": "weekly-digest",
+      "url": "outputs/research/digest.md",
+      "title": "Weekly X digest draft",
+      "summary": "Use the CLI to turn watched X status links into Markdown notes, JSONL index records, JSON Feed output, and RSS feed output.",
+      "date_published": "2026-07-02T00:00:00+00:00",
+      "tags": ["digest", "workflow"]
+    }
+  ]
+}

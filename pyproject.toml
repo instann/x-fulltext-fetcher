@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "x-fulltext-fetcher"
-version = "0.1.0"
-description = "Read-only URL-to-Markdown extraction for public X/Twitter posts and Articles."
+version = "0.2.0"
+description = "Read-only X/Twitter URL-to-Markdown extraction, research feeds, and local dashboard."
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
@@ -33,4 +33,3 @@ package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
-

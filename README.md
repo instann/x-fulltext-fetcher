@@ -8,9 +8,9 @@
 
 # X Fulltext Fetcher
 
-> A read-only research utility and Codex skill for turning public X/Twitter links into clean Markdown notes.
+> A read-only research utility, feed builder, dashboard, and Codex skill for turning public X/Twitter links into clean research notes.
 
-X Fulltext Fetcher helps you collect public posts and X Articles for business, AI, market, and creator-research workflows. It works like a lightweight MCP-style extraction layer: give it a public status URL, and it returns Markdown, metadata, and optional raw JSON for later indexing.
+X Fulltext Fetcher helps you collect public posts and X Articles for business, AI, market, and creator-research workflows. It works like a lightweight MCP-style extraction layer: give it a public status URL or source list, and it returns Markdown notes, digest files, metadata, JSON Feed, RSS, and optional raw JSON for later indexing.
 
 It does **not** bypass authentication, paywalls, private accounts, platform access controls, or copyright rules.
 
@@ -22,6 +22,8 @@ X contains many useful long-form posts and Articles, but public pages often requ
 - Detect whether it contains an X Article.
 - Convert available text blocks into Markdown.
 - Preserve metadata and raw JSON when needed.
+- Build a local digest, JSONL index, JSON Feed, and RSS feed.
+- Review collected items in the bundled static dashboard.
 - Use the bundled Codex skill for repeatable agent workflows.
 
 ## Features
@@ -30,6 +32,9 @@ X contains many useful long-form posts and Articles, but public pages often requ
 - **X Article support**: Parse `tweet.article.content.blocks` when available.
 - **Batch mode**: Process a list of links into a local corpus folder.
 - **Metadata output**: Save title, source URL, tweet id, article id, block count, cover image, and API URL.
+- **Source lists**: Maintain named X research collections in `examples/sources.json`.
+- **Digest and feed output**: Generate Markdown digests, JSONL indexes, JSON Feed, and RSS.
+- **Static dashboard**: Browse and mark research items in `web/index.html`.
 - **Raw source preservation**: Optionally store raw JSON for later auditing.
 - **Codex skill included**: Installable skill for future agent-driven research workflows.
 - **Extensible architecture**: Add adapters for search, official X MCP, indexing, or monitoring.
@@ -49,6 +54,20 @@ Batch mode:
 ```powershell
 python scripts/fetch_x_fulltext.py --batch examples/links.txt --out-dir outputs/corpus --metadata-out outputs/corpus/metadata.json --raw-json-dir outputs/raw
 ```
+
+Research feed mode:
+
+```powershell
+python scripts/fetch_x_fulltext.py --sources examples/sources.json --out-dir outputs/research --digest-out outputs/research/digest.md --index-out outputs/research/index.jsonl --feed-json web/feed.json --feed-rss outputs/research/feed.xml
+```
+
+Open the local dashboard:
+
+```powershell
+python -m http.server 8767
+```
+
+Then visit `http://127.0.0.1:8767/web/`.
 
 Install as a local Python package:
 
@@ -82,13 +101,15 @@ x-fulltext-fetcher/
 |   |-- METHODS.md                # endpoint notes and fallback strategy
 |   `-- ROADMAP.md                # planned MCP-like extensions
 |-- examples/
-|   `-- links.txt                 # batch input example
+|   |-- links.txt                 # batch input example
+|   `-- sources.json              # named X research sources
 |-- scripts/
 |   `-- fetch_x_fulltext.py       # standalone CLI script
 |-- skills/
 |   `-- x-fulltext-fetcher/       # Codex skill package
 |-- src/
 |   `-- x_fulltext_fetcher/       # Python package entrypoint
+|-- web/                          # static research dashboard
 `-- tests/
 ```
 
@@ -146,16 +167,18 @@ This project starts as a reliable URL-to-Markdown extractor and will grow toward
 
 ### Phase 2: Discovery
 
+- Named X source lists and topic tags.
 - Search-engine based discovery of candidate X status links.
-- Domain and topic watchlists.
 - Deduplication by tweet id and article id.
 - Per-source metadata normalization.
 
 ### Phase 3: Local Research Corpus
 
 - Store Markdown artifacts in a predictable folder layout.
-- Add a lightweight SQLite or JSONL index.
+- Add a lightweight JSONL index.
 - Add summary, tags, and topic fields.
+- Export JSON Feed and RSS.
+- Browse the feed in a static local dashboard.
 - Support recurring research workflows for business and AI monitoring.
 
 ### Phase 4: Official X MCP Bridge

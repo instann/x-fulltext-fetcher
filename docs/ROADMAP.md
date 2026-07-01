@@ -13,6 +13,7 @@ This project starts as a reliable URL-to-Markdown extractor and can grow into a 
 
 ## Phase 2: Discovery
 
+- Named X source lists with tags and notes.
 - Search-engine based discovery of candidate X status links.
 - Domain/topic watchlists.
 - Deduplication by tweet id and article id.
@@ -21,8 +22,10 @@ This project starts as a reliable URL-to-Markdown extractor and can grow into a 
 ## Phase 3: Local Research Corpus
 
 - Store Markdown artifacts in a predictable folder layout.
-- Add lightweight SQLite or JSONL index.
+- Add lightweight JSONL index.
 - Add summary, tags, and topic fields.
+- Export JSON Feed and RSS for downstream readers.
+- Provide a static local dashboard for reviewing and marking items.
 - Support recurring research workflows for business and AI monitoring.
 
 ## Phase 4: Official X MCP Bridge
@@ -39,4 +42,3 @@ This project starts as a reliable URL-to-Markdown extractor and can grow into a 
   - build a weekly trend digest,
   - compare posts across a topic,
   - export research notes.
-
