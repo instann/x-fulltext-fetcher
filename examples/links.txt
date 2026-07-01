@@ -1,0 +1,4 @@
+# One public X/Twitter status URL per line.
+# Article-only links are not enough for the current public adapter.
+https://x.com/ambertreelet/status/2071592494245285956?s=46
+

@@ -1,0 +1,4 @@
+interface:
+  display_name: "X Fulltext Fetcher"
+  short_description: "Fetch readable text from X links"
+  default_prompt: "Use $x-fulltext-fetcher to fetch and summarize this X post or Article link."

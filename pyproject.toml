@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "x-fulltext-fetcher"
+version = "0.1.0"
+description = "Read-only URL-to-Markdown extraction for public X/Twitter posts and Articles."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+  { name = "X Fulltext Fetcher Contributors" }
+]
+keywords = ["x", "twitter", "markdown", "research", "codex-skill", "mcp"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Internet :: WWW/HTTP",
+  "Topic :: Text Processing :: Markup :: Markdown"
+]
+dependencies = []
+
+[project.scripts]
+x-fulltext-fetch = "x_fulltext_fetcher.fetch:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
