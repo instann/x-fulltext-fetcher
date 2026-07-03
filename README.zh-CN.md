@@ -1,46 +1,54 @@
 <p align="center">
-  <img src="assets/hero-banner.png" alt="X Fulltext Fetcher banner" width="100%">
+  <img src="assets/research-hero.png" alt="X Librarian 学术研究书架" width="100%">
 </p>
 
 <p align="center">
   <a href="./README.md">English</a> / <strong>简体中文</strong>
 </p>
 
-# X 全文抓取器
+<h1 align="center">X 文章馆</h1>
 
-> 一个本地优先的 X/Twitter 文章项目库，用来把公开 X 链接抓取成 Markdown、项目收录和持续生长的元文章。
+<p align="center">
+  把公开 X 长文收进你的本地研究书架：项目库、Markdown 文章、持续生长的元文章。
+</p>
 
-X 全文抓取器可以帮助你收集公开推文和 X Article，适合商业研究、AI 研究、市场观察、创作者内容分析等工作流。启动本地应用后，你可以新建项目、粘贴公开 X status 链接，并把文章保存为项目里的 Markdown。每个项目都会维护一篇 `meta.md` 元文章，用来沉淀项目库，方便后续做摘要总结。
+<p align="center">
+  <a href="#快速开始">快速开始</a> ·
+  <a href="#它能做什么">功能</a> ·
+  <a href="#阅读器与元文章">阅读器</a> ·
+  <a href="./README.md">English</a>
+</p>
+
+<p align="center">
+  <img alt="Python" src="https://img.shields.io/badge/Python-3.9%2B-176b4d">
+  <img alt="Local first" src="https://img.shields.io/badge/local--first-Markdown-245f8f">
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-c96f5a">
+</p>
+
+X 文章馆可以帮助你收集公开推文和 X Article，适合商业研究、AI 研究、市场观察、创作者内容分析等工作流。启动本地应用后，你可以新建项目、粘贴公开 X status 链接，并把文章保存为项目里的 Markdown。每个项目都会维护一篇 `meta.md` 元文章，用来沉淀项目库，方便后续做摘要总结。
 
 它**不会**绕过登录、付费墙、私密账号、平台访问控制或版权规则。
 
 ## 为什么做这个
 
-X 上有很多有价值的长文和 Article，但网页经常要求登录，或者通过前端动态渲染内容。为了合法研究、个人资料归档和 AI 辅助笔记，这个项目提供一个可复现的流程：
+X 上有很多有价值的长文和 Article，但研究链接经常散落在收藏夹、聊天记录和临时截图里。为了合法研究、个人资料归档和 AI 辅助笔记，这个项目提供一个本地工作流：
 
-- 抓取一个公开的 X status 链接。
-- 检测其中是否包含 X Article。
-- 把可读取的文本块转换成 Markdown。
-- 按需保存元数据和原始 JSON。
-- 创建本地研究项目。
-- 粘贴一个公开 X status URL，并保存到当前项目。
+- 为一个选题、市场、创作者或研究问题创建项目。
+- 粘贴一个公开 X status URL。
+- 把文章保存成可读 Markdown。
+- 在内置阅读器里直接阅读。
 - 为每个项目维护一篇 `meta.md` 元文章。
-- 按需生成本地 digest、JSONL 索引、JSON Feed 和 RSS。
-- 通过内置 Codex Skill 支持可重复的 Agent 工作流。
+- 按需导出元数据、JSON Feed、RSS 和原始 JSON。
 
-## 功能
+## 它能做什么
 
-- **链接转 Markdown**：将公开 `/status/<id>` 链接转换成可读 Markdown。
-- **支持 X Article**：在数据可用时解析 `tweet.article.content.blocks`。
-- **批量模式**：将一组链接批量处理到本地语料文件夹。
-- **元数据输出**：保存标题、来源链接、tweet id、article id、块数量、封面图和 API URL。
-- **本地项目应用**：提供中文 Web 界面，支持创建项目、抓取 URL、展示文章和预览元文章。
-- **来源列表**：在 `examples/sources.json` 中维护命名 X 研究集合。
-- **摘要与 feed 输出**：生成 Markdown digest、JSONL 索引、JSON Feed 和 RSS。
-- **静态仪表盘**：在 `web/index.html` 中浏览和标记研究项。
-- **原始数据保留**：可选保存原始 JSON，方便之后审计。
-- **内置 Codex Skill**：包含可安装的 Skill，方便未来由 Agent 驱动研究流程。
-- **可扩展架构**：可继续接入搜索、官方 X MCP、索引或监控适配器。
+- **项目库**：创建本地项目，把 X 文章收进对应项目。
+- **单链接收录**：粘贴公开 `/status/<id>` URL，保存 Markdown 和 raw JSON。
+- **美观阅读**：点击已收录文章，直接进入本地 Markdown 阅读器。
+- **元文章**：每个项目维护一篇持续生长的 `meta.md`。
+- **批量研究**：通过 CLI 处理链接列表或来源集合。
+- **多格式导出**：生成 Markdown digest、JSONL 索引、JSON Feed 和 RSS。
+- **Codex Skill**：内置 Skill，方便 Agent 参与后续研究流程。
 
 ## 快速开始
 
@@ -63,7 +71,22 @@ http://127.0.0.1:8767/
 1. 新建项目。
 2. 粘贴公开 X status URL。
 3. 点击 `抓取并收录`。
-4. 查看文章库和项目 `meta.md` 元文章预览。
+4. 点击已收录文章，进入 Markdown 阅读器。
+5. 查看项目 `meta.md` 元文章预览，用于后续总结。
+
+## 阅读器与元文章
+
+每个项目都会保存到：
+
+```text
+outputs/projects/<project-id>/
+|-- articles/       # 抓取后的 Markdown 文章
+|-- raw/            # 保留的原始 JSON
+|-- meta.md         # 项目级元文章
+`-- project.json    # 本地项目索引
+```
+
+整个应用默认本地优先，不会把你的研究库上传到远程服务。
 
 从 CLI 抓取一个公开 X status 链接：
 
@@ -91,7 +114,7 @@ x-fulltext-fetch "https://x.com/ambertreelet/status/2071592494245285956?s=46" --
 x-fulltext-app
 ```
 
-## 输出示例
+## CLI 输出示例
 
 ```markdown
 # Super useful Article title

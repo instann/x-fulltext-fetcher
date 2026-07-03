@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>阅读 X 文章</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body class="reader-body">
+    <header class="reader-topbar">
+      <a href="/" class="back-link">返回项目库</a>
+      <div class="reader-actions">
+        <a id="rawMarkdownLink" href="#" target="_blank" rel="noreferrer">原始 Markdown</a>
+        <a id="sourceBackLink" href="/">项目首页</a>
+      </div>
+    </header>
+
+    <main class="reader-shell">
+      <article class="markdown-page">
+        <p class="eyebrow">本地 Markdown 阅读器</p>
+        <h1 id="readerTitle">正在加载文章...</h1>
+        <div id="markdownView" class="markdown-view"></div>
+      </article>
+    </main>
+
+    <script src="./reader.js"></script>
+  </body>
+</html>

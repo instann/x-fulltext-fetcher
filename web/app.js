@@ -116,9 +116,10 @@ function renderArticles(articles, projectId) {
     const item = document.createElement("article");
     item.className = "article-card";
     const markdownHref = `/files/${encodeURIComponent(projectId)}/${encodePath(article.markdown_path || "")}`;
+    const readerHref = `/reader.html?project=${encodeURIComponent(projectId)}&path=${encodeURIComponent(article.markdown_path || "")}&title=${encodeURIComponent(article.title || "未命名文章")}`;
     item.innerHTML = `
       <div>
-        <h3>${escapeHtml(article.title || "未命名文章")}</h3>
+        <h3><a href="${escapeHtml(readerHref)}">${escapeHtml(article.title || "未命名文章")}</a></h3>
         <p>${escapeHtml(article.summary || "暂无摘要。")}</p>
         <div class="article-meta">
           <span>${escapeHtml(article.kind || "article")}</span>
@@ -126,10 +127,14 @@ function renderArticles(articles, projectId) {
         </div>
       </div>
       <div class="article-actions">
-        <a href="${escapeHtml(markdownHref)}" target="_blank" rel="noreferrer">Markdown</a>
+        <a href="${escapeHtml(readerHref)}">阅读</a>
         <a href="${escapeHtml(article.source_url || article.source || "#")}" target="_blank" rel="noreferrer">原文</a>
       </div>
     `;
+    item.addEventListener("click", (event) => {
+      if (event.target.closest("a")) return;
+      window.location.href = readerHref;
+    });
     els.articleList.appendChild(item);
   }
 }

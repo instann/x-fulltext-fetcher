@@ -1,46 +1,54 @@
 <p align="center">
-  <img src="assets/hero-banner.png" alt="X Fulltext Fetcher banner" width="100%">
+  <img src="assets/research-hero.png" alt="X Librarian academic research shelf" width="100%">
 </p>
 
 <p align="center">
   <strong>English</strong> / <a href="./README.zh-CN.md">简体中文</a>
 </p>
 
-# X Fulltext Fetcher
+<h1 align="center">X Librarian</h1>
 
-> A local-first X/Twitter article project library for capturing public X links into Markdown, project collections, and living meta articles.
+<p align="center">
+  Turn public X long-form posts into a local research shelf: projects, Markdown articles, and living meta notes.
+</p>
 
-X Fulltext Fetcher helps you collect public posts and X Articles for business, AI, market, and creator-research workflows. Start the local app, create a project, paste a public X status URL, and the article is fetched into that project as Markdown. Each project keeps a `meta.md` article that accumulates the project library for later summarization.
+<p align="center">
+  <a href="#quick-start">Quick Start</a> ·
+  <a href="#what-you-can-do">Features</a> ·
+  <a href="#reader-and-meta-articles">Reader</a> ·
+  <a href="./README.zh-CN.md">中文文档</a>
+</p>
+
+<p align="center">
+  <img alt="Python" src="https://img.shields.io/badge/Python-3.9%2B-176b4d">
+  <img alt="Local first" src="https://img.shields.io/badge/local--first-Markdown-245f8f">
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-c96f5a">
+</p>
+
+X Librarian helps you collect public posts and X Articles for business, AI, market, and creator-research workflows. Start the local app, create a project, paste a public X status URL, and the article is fetched into that project as Markdown. Each project keeps a `meta.md` article that accumulates the project library for later summarization.
 
 It does **not** bypass authentication, paywalls, private accounts, platform access controls, or copyright rules.
 
 ## Why This Exists
 
-X contains many useful long-form posts and Articles, but public pages often require login or render content through client-side data. For legitimate research, personal archiving, and AI-assisted note-taking, this project provides a reproducible workflow:
+X contains many useful long-form posts and Articles, but useful research links disappear into bookmarks, chats, and one-off screenshots. For legitimate research, personal archiving, and AI-assisted note-taking, this project gives you a local workflow:
 
-- Fetch a public X status URL.
-- Detect whether it contains an X Article.
-- Convert available text blocks into Markdown.
-- Preserve metadata and raw JSON when needed.
-- Create local research projects.
-- Paste one public X status URL and save it into the selected project.
-- Maintain a project-level `meta.md` article for later synthesis.
-- Build a local digest, JSONL index, JSON Feed, and RSS feed when needed.
-- Use the bundled Codex skill for repeatable agent workflows.
+- Create a project for a topic, market, creator, or research question.
+- Paste one public X status URL.
+- Save the article as readable Markdown.
+- Read it in a polished local Markdown reader.
+- Maintain one project-level `meta.md` article for later synthesis.
+- Export metadata, JSON Feed, RSS, and raw JSON when needed.
 
-## Features
+## What You Can Do
 
-- **URL to Markdown**: Convert public `/status/<id>` links into readable Markdown.
-- **X Article support**: Parse `tweet.article.content.blocks` when available.
-- **Batch mode**: Process a list of links into a local corpus folder.
-- **Metadata output**: Save title, source URL, tweet id, article id, block count, cover image, and API URL.
-- **Local project app**: Run a Chinese web UI for project creation, URL capture, article display, and meta-article preview.
-- **Source lists**: Maintain named X research collections in `examples/sources.json`.
-- **Digest and feed output**: Generate Markdown digests, JSONL indexes, JSON Feed, and RSS.
-- **Static dashboard**: Browse and mark research items in `web/index.html`.
-- **Raw source preservation**: Optionally store raw JSON for later auditing.
-- **Codex skill included**: Installable skill for future agent-driven research workflows.
-- **Extensible architecture**: Add adapters for search, official X MCP, indexing, or monitoring.
+- **Project libraries**: Create local projects and collect X articles into each project.
+- **One-link capture**: Paste a public `/status/<id>` URL and save Markdown plus raw JSON.
+- **Beautiful reading**: Open collected Markdown in the built-in reader instead of downloading raw files.
+- **Meta articles**: Keep a living `meta.md` per project for later summaries and synthesis.
+- **Batch research**: Process link lists or source collections from the CLI.
+- **Export formats**: Generate Markdown digests, JSONL indexes, JSON Feed, and RSS.
+- **Codex skill**: Use the bundled skill for repeatable agent-driven research workflows.
 
 ## Quick Start
 
@@ -63,7 +71,22 @@ In the app:
 1. Create a project.
 2. Paste a public X status URL.
 3. Click `抓取并收录`.
-4. Review the article list and the project `meta.md` preview.
+4. Click a collected article to read it in the Markdown reader.
+5. Review the project `meta.md` preview for later synthesis.
+
+## Reader And Meta Articles
+
+Each project is saved under:
+
+```text
+outputs/projects/<project-id>/
+|-- articles/       # captured Markdown articles
+|-- raw/            # preserved raw source JSON
+|-- meta.md         # project-level synthesis note
+`-- project.json    # local project index
+```
+
+The web app is intentionally local-first. It does not upload your research library to a remote service.
 
 Fetch one public X status URL from the CLI:
 
@@ -91,7 +114,7 @@ x-fulltext-fetch "https://x.com/ambertreelet/status/2071592494245285956?s=46" --
 x-fulltext-app
 ```
 
-## Example Output
+## CLI Example Output
 
 ```markdown
 # Super useful Article title
