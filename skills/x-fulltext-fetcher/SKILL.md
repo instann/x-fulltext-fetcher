@@ -7,7 +7,7 @@ description: Fetch readable text, metadata, X Article content, and local researc
 
 ## Overview
 
-Use this skill to retrieve public X/Twitter post text and X Article bodies from a link, with a reproducible fallback workflow. Treat it as a lightweight, read-only, MCP-like research tool for URL-based information collection, local digests, JSONL indexes, JSON Feed, and RSS output. Prefer saving extracted full text to a local Markdown file and summarizing it in chat when the content is long or copyrighted.
+Use this skill to retrieve public X/Twitter post text and X Article bodies from a link, with a reproducible fallback workflow. Treat it as a lightweight, read-only, MCP-like research tool for URL-based information collection, local project libraries, meta articles, JSONL indexes, JSON Feed, and RSS output. Prefer saving extracted full text to a local Markdown file and summarizing it in chat when the content is long or copyrighted.
 
 ## Quick Start
 
@@ -29,6 +29,12 @@ For a named research feed:
 
 ```powershell
 python C:\Users\lgq20\.codex\skills\x-fulltext-fetcher\scripts\fetch_x_fulltext.py --sources F:\Codex\x-sources.json --out-dir F:\Codex\x-research --digest-out F:\Codex\x-research\digest.md --index-out F:\Codex\x-research\index.jsonl --feed-json F:\Codex\x-research\feed.json --feed-rss F:\Codex\x-research\feed.xml
+```
+
+For hands-on local use, run the repository app:
+
+```powershell
+python F:\Codex\x-fulltext-fetcher\scripts\run_app.py
 ```
 
 ## Workflow

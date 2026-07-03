@@ -8,9 +8,9 @@
 
 # X Fulltext Fetcher
 
-> A read-only research utility, feed builder, dashboard, and Codex skill for turning public X/Twitter links into clean research notes.
+> A local-first X/Twitter article project library for capturing public X links into Markdown, project collections, and living meta articles.
 
-X Fulltext Fetcher helps you collect public posts and X Articles for business, AI, market, and creator-research workflows. It works like a lightweight MCP-style extraction layer: give it a public status URL or source list, and it returns Markdown notes, digest files, metadata, JSON Feed, RSS, and optional raw JSON for later indexing.
+X Fulltext Fetcher helps you collect public posts and X Articles for business, AI, market, and creator-research workflows. Start the local app, create a project, paste a public X status URL, and the article is fetched into that project as Markdown. Each project keeps a `meta.md` article that accumulates the project library for later summarization.
 
 It does **not** bypass authentication, paywalls, private accounts, platform access controls, or copyright rules.
 
@@ -22,8 +22,10 @@ X contains many useful long-form posts and Articles, but public pages often requ
 - Detect whether it contains an X Article.
 - Convert available text blocks into Markdown.
 - Preserve metadata and raw JSON when needed.
-- Build a local digest, JSONL index, JSON Feed, and RSS feed.
-- Review collected items in the bundled static dashboard.
+- Create local research projects.
+- Paste one public X status URL and save it into the selected project.
+- Maintain a project-level `meta.md` article for later synthesis.
+- Build a local digest, JSONL index, JSON Feed, and RSS feed when needed.
 - Use the bundled Codex skill for repeatable agent workflows.
 
 ## Features
@@ -32,6 +34,7 @@ X contains many useful long-form posts and Articles, but public pages often requ
 - **X Article support**: Parse `tweet.article.content.blocks` when available.
 - **Batch mode**: Process a list of links into a local corpus folder.
 - **Metadata output**: Save title, source URL, tweet id, article id, block count, cover image, and API URL.
+- **Local project app**: Run a Chinese web UI for project creation, URL capture, article display, and meta-article preview.
 - **Source lists**: Maintain named X research collections in `examples/sources.json`.
 - **Digest and feed output**: Generate Markdown digests, JSONL indexes, JSON Feed, and RSS.
 - **Static dashboard**: Browse and mark research items in `web/index.html`.
@@ -41,11 +44,30 @@ X contains many useful long-form posts and Articles, but public pages often requ
 
 ## Quick Start
 
-Clone the repository and fetch one public X status URL:
+Clone the repository and start the local app:
 
 ```powershell
 git clone https://github.com/instann/x-fulltext-fetcher.git
 cd x-fulltext-fetcher
+python scripts/run_app.py
+```
+
+Open:
+
+```text
+http://127.0.0.1:8767/
+```
+
+In the app:
+
+1. Create a project.
+2. Paste a public X status URL.
+3. Click `抓取并收录`.
+4. Review the article list and the project `meta.md` preview.
+
+Fetch one public X status URL from the CLI:
+
+```powershell
 python scripts/fetch_x_fulltext.py "https://x.com/ambertreelet/status/2071592494245285956?s=46" --out outputs/article.md --metadata
 ```
 
@@ -61,19 +83,12 @@ Research feed mode:
 python scripts/fetch_x_fulltext.py --sources examples/sources.json --out-dir outputs/research --digest-out outputs/research/digest.md --index-out outputs/research/index.jsonl --feed-json web/feed.json --feed-rss outputs/research/feed.xml
 ```
 
-Open the local dashboard:
-
-```powershell
-python -m http.server 8767
-```
-
-Then visit `http://127.0.0.1:8767/web/`.
-
 Install as a local Python package:
 
 ```powershell
 python -m pip install -e .
 x-fulltext-fetch "https://x.com/ambertreelet/status/2071592494245285956?s=46" --out outputs/article.md
+x-fulltext-app
 ```
 
 ## Example Output
@@ -104,12 +119,13 @@ x-fulltext-fetcher/
 |   |-- links.txt                 # batch input example
 |   `-- sources.json              # named X research sources
 |-- scripts/
-|   `-- fetch_x_fulltext.py       # standalone CLI script
+|   |-- fetch_x_fulltext.py       # standalone CLI script
+|   `-- run_app.py                # local web app launcher
 |-- skills/
 |   `-- x-fulltext-fetcher/       # Codex skill package
 |-- src/
 |   `-- x_fulltext_fetcher/       # Python package entrypoint
-|-- web/                          # static research dashboard
+|-- web/                          # Chinese local project app frontend
 `-- tests/
 ```
 
@@ -178,7 +194,8 @@ This project starts as a reliable URL-to-Markdown extractor and will grow toward
 - Add a lightweight JSONL index.
 - Add summary, tags, and topic fields.
 - Export JSON Feed and RSS.
-- Browse the feed in a static local dashboard.
+- Create project libraries from the web UI.
+- Maintain one `meta.md` article per project.
 - Support recurring research workflows for business and AI monitoring.
 
 ### Phase 4: Official X MCP Bridge

@@ -25,7 +25,7 @@ This project starts as a reliable URL-to-Markdown extractor and can grow into a 
 - Add lightweight JSONL index.
 - Add summary, tags, and topic fields.
 - Export JSON Feed and RSS for downstream readers.
-- Provide a static local dashboard for reviewing and marking items.
+- Provide a Chinese local web app for creating projects, capturing X URLs, and maintaining a `meta.md` article per project.
 - Support recurring research workflows for business and AI monitoring.
 
 ## Phase 4: Official X MCP Bridge

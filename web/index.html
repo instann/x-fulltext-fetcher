@@ -1,118 +1,101 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>X Fulltext Fetcher Dashboard</title>
+    <title>X 文章项目库</title>
     <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
-    <div class="app-shell">
-      <aside class="sidebar" aria-label="Primary">
+    <div class="shell">
+      <aside class="project-rail" aria-label="项目库">
         <div class="brand">
           <img src="../assets/hero-banner.png" alt="" class="brand-mark">
           <div>
-            <strong>X Fulltext</strong>
-            <span>Research feed</span>
+            <strong>X 文章项目库</strong>
+            <span>本地收录 · 元文章沉淀</span>
           </div>
         </div>
-        <nav class="nav-list">
-          <a href="#overview" class="active">Overview</a>
-          <a href="#sources">Sources</a>
-          <a href="#digest">Digest</a>
-          <a href="#exports">Exports</a>
-        </nav>
-        <div class="sidebar-note">
-          <span class="note-label">Local first</span>
-          <p>Markdown, JSON Feed, RSS, and JSONL stay in your workspace.</p>
+
+        <form id="projectForm" class="new-project">
+          <label>
+            <span>新建项目</span>
+            <input id="projectName" required placeholder="例如：AI 产品选题库">
+          </label>
+          <label>
+            <span>项目说明</span>
+            <textarea id="projectDescription" rows="3" placeholder="这个项目打算研究什么？"></textarea>
+          </label>
+          <button type="submit">创建项目</button>
+        </form>
+
+        <div class="rail-heading">
+          <span>项目列表</span>
+          <small id="projectCount">0 个</small>
         </div>
+        <div id="projectList" class="project-list"></div>
       </aside>
 
       <main class="workspace">
-        <header class="topbar">
+        <section class="hero-panel">
           <div>
-            <p class="eyebrow">X-centered intelligence workspace</p>
-            <h1>Curate public X posts into a research feed.</h1>
+            <p class="eyebrow">上手流程</p>
+            <h1>建一个项目，粘贴 X 文章链接，保存到本地项目库。</h1>
+            <p class="hero-copy">每个项目都会维护一篇 `meta.md` 元文章，持续记录已收录文章、来源、摘要和后续可总结的材料。</p>
           </div>
-          <div class="toolbar">
-            <label class="file-button">
-              Load feed
-              <input id="feedFile" type="file" accept="application/json,.json">
+          <ol class="steps">
+            <li><strong>1</strong><span>新建研究项目</span></li>
+            <li><strong>2</strong><span>粘贴 X status URL</span></li>
+            <li><strong>3</strong><span>抓取并写入本地</span></li>
+          </ol>
+        </section>
+
+        <section class="active-project">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">当前项目</p>
+              <h2 id="activeProjectName">请先创建或选择项目</h2>
+            </div>
+            <span id="saveLocation" class="path-pill">outputs/projects</span>
+          </div>
+          <p id="activeProjectDescription" class="muted">项目中的文章会保存为 Markdown，元文章会自动更新。</p>
+
+          <form id="captureForm" class="capture-box">
+            <label>
+              <span>X 文章链接</span>
+              <input id="articleUrl" type="url" placeholder="https://x.com/user/status/123" required>
             </label>
-            <a class="icon-button" href="./sample-feed.json" download aria-label="Download sample feed">JSON</a>
-            <a class="icon-button" href="../README.md" aria-label="Open README">Docs</a>
-          </div>
-        </header>
-
-        <section id="overview" class="metrics-grid" aria-label="Feed metrics">
-          <article class="metric-card">
-            <span>Items</span>
-            <strong id="metricItems">0</strong>
-            <small>Collected links</small>
-          </article>
-          <article class="metric-card">
-            <span>Sources</span>
-            <strong id="metricSources">0</strong>
-            <small>Distinct origins</small>
-          </article>
-          <article class="metric-card">
-            <span>Tags</span>
-            <strong id="metricTags">0</strong>
-            <small>Research themes</small>
-          </article>
-          <article class="metric-card">
-            <span>Marked</span>
-            <strong id="metricMarked">0</strong>
-            <small>Saved for review</small>
-          </article>
+            <button id="captureButton" type="submit">抓取并收录</button>
+          </form>
+          <p id="statusLine" class="status-line">准备就绪。</p>
         </section>
 
-        <section class="control-row" aria-label="Feed controls">
-          <div class="segmented" role="tablist" aria-label="Digest cadence">
-            <button class="selected" data-period="all">All</button>
-            <button data-period="4h">4H</button>
-            <button data-period="daily">Daily</button>
-            <button data-period="weekly">Weekly</button>
-          </div>
-          <label class="search-box">
-            <span>Search</span>
-            <input id="searchInput" type="search" placeholder="Title, summary, tag">
-          </label>
-        </section>
-
-        <section class="content-grid">
-          <div class="feed-column">
-            <div class="section-heading">
+        <section class="library-grid">
+          <div class="article-pane">
+            <div class="section-title">
               <div>
-                <p class="eyebrow">Digest queue</p>
-                <h2>Research items</h2>
+                <p class="eyebrow">文章库</p>
+                <h2>已收录文章</h2>
               </div>
-              <span id="resultCount" class="count-pill">0 shown</span>
+              <span id="articleCount" class="path-pill">0 篇</span>
             </div>
-            <div id="feedList" class="feed-list"></div>
+            <div id="articleList" class="article-list"></div>
           </div>
 
-          <aside class="insight-panel" id="digest">
-            <div class="section-heading">
+          <aside class="meta-pane">
+            <div class="section-title">
               <div>
-                <p class="eyebrow">Deep dive</p>
-                <h2 id="detailTitle">Select an item</h2>
+                <p class="eyebrow">元文章</p>
+                <h2>meta.md 预览</h2>
               </div>
+              <a id="metaFileLink" href="#" target="_blank" rel="noreferrer">打开文件</a>
             </div>
-            <p id="detailSummary" class="detail-summary">Choose a feed item to inspect its summary, source link, and tags.</p>
-            <div class="detail-meta" id="detailMeta"></div>
-            <div class="action-stack">
-              <button id="markButton" type="button">Mark for review</button>
-              <a id="openSource" href="#" target="_blank" rel="noreferrer">Open source</a>
-            </div>
-            <div id="exports" class="export-box">
-              <h3>CLI export recipe</h3>
-              <code>python scripts/fetch_x_fulltext.py --sources examples/sources.json --out-dir outputs/research --digest-out outputs/research/digest.md --index-out outputs/research/index.jsonl --feed-json web/feed.json --feed-rss outputs/research/feed.xml</code>
-            </div>
+            <pre id="metaPreview" class="meta-preview">选择项目后，这里会显示项目元文章。</pre>
           </aside>
         </section>
       </main>
     </div>
+
     <script src="./app.js"></script>
   </body>
 </html>
